@@ -1,6 +1,5 @@
 var Discord = require("discord.js");
 var bot = new Discord.Client();
-const now = require('performance-now');
 
 bot.on("message", message => {
   if(message.author !== bot.user) return;
@@ -43,22 +42,13 @@ if (message.content.toLowerCase().startsWith(prefix+'help')) {
     message.channel.sendCode("none","/ping: Checks if bot is online and gives you Ping in MS\n/stats: Shows server stats\n/github: Gives you a link to our github\n/trello: Gives you a link to our trello\n/facepalm: posts a facepalm gif\n/flip: Flips dem tables\n/booty: ( ͡° ͜ʖ ͡°)\n/mindblown: Posts a mindblown gif")
     console.log('[C] ' + message.author.username + ' used /help')
 }
-if (message.content.toLowerCase().startsWith(prefix + 'ping')) {
-    console.log('[C] ' + message.author.username + ' used /ping')
-    var startTime = now();
-    message.channel.sendMessage("Ping Started")
-        .then(message => {
-            var endTime = now();
-            return message.edit(`Ping took ${(endTime - startTime).toFixed(3)} ms.`);
-        }).catch(console.error);
-}
 if (message.content.toLowerCase().startsWith(prefix + 'github')) {
   message.reply("Check our github: https://github.com/DarkBot-Coding/darkbot")
   console.log('[C] ' + message.author.username + ' used /github on ' + message.guild.name)
 }
 if (message.content.toLowerCase().startsWith(prefix+'kick') && message.member.roles.filter(r=>r.hasPermission('KICK_MEMBERS')).size > 0) {
 message.delete();
-message.reply("Succesfully banned " + message.mentions.users.first())
+message.reply("Succesfully kicked " + message.mentions.users.first())
 console.log('[C] ' + message.author.username + ' Kicked ' + message.mentions.users.first())
 message.guild.member(message.mentions.users.first()).kick();
 }
